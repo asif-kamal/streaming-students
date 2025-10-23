@@ -1,0 +1,53 @@
+package dev.lpa;
+
+import java.time.LocalDate;
+import java.time.Period;
+
+public class CourseEngagement {
+    private final Course course;
+    private final LocalDate enrollmentDate;
+
+    private String engagementType;
+    private int lastLecture;
+    private LocalDate lastActivityDate;
+
+    public CourseEngagement(String engagementType, LocalDate enrollmentDate, Course course) {
+        this.engagementType = engagementType;
+        this.enrollmentDate = this.lastActivityDate = enrollmentDate;
+        this.course = course;
+    }
+
+    public String getCourseCode() {
+        return course.courseCode();
+    }
+
+    public int getEnrollmentYear() {
+        return enrollmentDate.getYear();
+    }
+
+    public String getEngagementType() {
+        return engagementType;
+    }
+
+    public int getLastLecture() {
+        return lastLecture;
+    }
+
+    public int getLastActivityYear() {
+        return lastActivityDate.getYear();
+    }
+
+    public String getLastActivityMonth() {
+        return "%tb".formatted(lastActivityDate);
+    }
+
+    public double getPercentComplete() {
+        return lastLecture * 100.0 / course.lectureCount();
+    }
+
+    public int getMonthsSinceActive() {
+        LocalDate now = LocalDate.now();
+        var months = Period.between(lastActivityDate, now).toTotalMonths();
+        return (int) months;
+    }
+}
