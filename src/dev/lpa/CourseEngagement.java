@@ -50,4 +50,18 @@ public class CourseEngagement {
         var months = Period.between(lastActivityDate, now).toTotalMonths();
         return (int) months;
     }
+
+    void watchLecture(int lectureNumber, LocalDate currentDate) {
+
+        lastLecture = Math.max(lectureNumber, lastLecture);
+        lastActivityDate = currentDate;
+        engagementType = "Lecture " + lastLecture;
+    }
+
+    @Override
+    public String toString() {
+        return "%s: %s %d %s [%d]".formatted(course.courseCode(),
+                getLastActivityMonth(), getLastActivityYear(), engagementType,
+                getMonthsSinceActive());
+    }
 }
